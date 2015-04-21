@@ -77,6 +77,21 @@ class HipChatClient
       data: data
 
     @_sendRequest options, callback
+
+  postNotification: (params, callback) ->
+    data =
+      message: params.message
+      notify:  if params.notify then 1 else 0
+      color:   params.color ? 'yellow'
+      message_format: params.message_format ? 'html'
+  
+    options = @_prepareOptions
+      method: 'post'
+      path:   '/v2/room/'+params.room_id+'/notification'
+      data: data
+
+    @_sendRequest options, callback
+
   
 # users/* methods
 
